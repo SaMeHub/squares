@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Sascha Mehlhase" />
+    <meta name="description" content="Squares - a little brain-game about sorting numbers" />
+    <meta name="keywords" content="Squares, Game, Numbers, Sascha, Mehlhase" />
+    <link rel="icon" href="squares32.ico" type="image/x-icon">
+    <title>Squares.Mehlhase.Info</title>
+		<script language=javascript type="text/javascript">
+			<!--
+      class Squares {
+        constructor(id) {
+          var element = document.createElement('style');
+          document.head.appendChild(element);
+          var sheet = element.sheet;
+          
+          sheet.insertRule('body {height: 100vh; display: flex; padding: 0; margin: 0; font-family: "Source Sans Pro", Helvetica, sans-serif;}', 0);
+          sheet.insertRule('a:hover, a:visited, a:focus, a:active {color: currentColor;}', 0);
+          sheet.insertRule('.frame {width: min(95vh, 95vw); height: min(95vh, 95vw); margin: auto; overflow: hidden; padding: 0; z-index: 1; position: relative; background: #e8e5ce; border: 2px solid #220e10; border-radius: 5px;}', 0);
+          sheet.insertRule('.boxes {position: absolute; margin: 0; padding: 0; z-index: 2; background: #220e10; color: #e8e5ce; border-radius: 5px; display: flex; justify-content: center; align-items: center; text-align: center;}', 0);
+          sheet.insertRule('.manual {position: absolute; margin: 0; padding: 40px; z-index: 3; background: #220e10; color: #e8e5ce; border-radius: 5px; display: flex; justify-content: center; align-items: center; text-align: center; top: 20px; right: 20px; bottom: 20px; left: 20px; display: none; overflow: auto;}', 0);
+
+          this.running = false;
+          this.nclicks = 0;
+          this.frame_id = id;
+          this.number = 3;
+          this.number_knobs = this.number - 1;
+          this.initialiseGame();
+        }
+
+        updateBoxPosition(box, i) {
+          var x = i % this.number;
+          var y = Math.floor(i / this.number);
+          box.style.left = 'calc(20px + ' + x + ' * (((100% - ' + (this.number + 1) + ' * 20px) / ' + this.number + ') + 20px))';
+          box.style.top = 'calc(20px + ' + y + ' * (((100% - ' + (this.number + 1) + ' * 20px) / ' + this.number + ') + 20px))';
+        }
+
+        updateKnobPosition(knob, i) {
+          var x = i % this.number_knobs + 1;
+          var y = Math.floor(i / this.number_knobs) + 1;
+          knob.style.left = 'calc(' + x + ' * (((100% - ' + (this.number + 1) + ' * 20px) / ' + this.number + ') + 20px))';
+          knob.style.top = 'calc(' + y + ' * (((100% - ' + (this.number + 1) + ' * 20px) / ' + this.number + ') + 20px))';
+        }
+
+        initialiseGame = () => {
+          this.running = false;
+
+          var number = this.number
+          // console.log('Initialised a game of ' + number + 'x' + number + ' Squares');
+          var frame = document.getElementsByClassName(this.frame_id)[0];
+          this.boxes = [];
+          for (let i = 0; i < Math.pow(number, 2); ++i) {
+            var box = document.createElement('div');
+            box.className = 'boxes';
+            box.style.width = 'calc((100% - ' + (number + 1) + ' * 20px) / ' + number + ')';
+            box.style.height = 'calc((100% - ' + (number + 1) + ' * 20px) / ' + number + ')';
+            box.innerHTML = '';
+            box.idx = i;
+            // box.setAttribute('idx', i);
+            this.updateBoxPosition(box, i);
+            frame.appendChild(box);
+            this.boxes.push(box);
+          }
+    
+          var number_knobs = this.number_knobs;
+          this.knobs = [];
+          for (let i = 0; i < Math.pow(number_knobs, 2); ++i) {
+            var knob = document.createElement('div');
+            knob.className = 'boxes';
+            knob.style.width = '20px';
+            knob.style.height = '20px';
+            knob.style.cursor = 'pointer';
+            knob.innerHTML = '&#10227;'; // &#8635; / &#10227;
+            knob.idx = i;
+            // knob.setAttribute('idx', i);
+            this.updateKnobPosition(knob, i);
+            knob.addEventListener('click', () => this.turnBoxes(i));
+            frame.appendChild(knob);
+            this.knobs.push(knob);
+          }
+
+          this.manual = document.createElement('div');
+          this.manual.className = 'manual';
+          this.manual.innerHTML = '<h1>Squares</h1><p><sup>by Sascha Mehlhase<br /><a href="https://sascha.mehlhase.info/">sascha.mehlhase.info</a><br />@saschamehlhase</sup></p><p>Squares is a little puzzle game where your goal is to get numbered boxes back in order. In particular this mean starting with the smallest number in the top-left corner, increasing to the top-right corner, continuing in the following rows until the largest number in the bottom-right corner. In a standard game, there are nine consecutive numbers to sort.</p><p>You can use the little \'knobs\' in between the numbered boxes to switch boxes clockwise around the knob.</p><p>Have fun!</p><p><sub><a href="https://github.com/SaMeHub/squares">https://github.com/SaMeHub/squares</a><br />GNU General Public License v3.0<sub></p><p><sub>Click to close the manual.</sub></p>';
+          this.manual.style.cursor = 'pointer';
+          this.manual.addEventListener('click', this.showHideManual);
+          frame.appendChild(this.manual);
+
+          this.boxes.at(0).innerHTML = '<h1>Squares</h1>';
+          this.boxes.at(1).innerHTML = 'by';
+          this.boxes.at(2).innerHTML = 'Sascha<br />Mehlhase';
+          this.boxes.at(2).style.cursor = 'pointer';
+          this.boxes.at(2).addEventListener('click', function() {window.open('https://sascha.mehlhase.info/', '_self')});
+          this.boxes.at(-2).innerHTML = 'Manual';
+          this.boxes.at(-2).style.cursor = 'pointer';
+          this.boxes.at(-2).addEventListener('click', this.showHideManual);
+          // implement a manual here
+          this.boxes.at(-1).innerHTML = 'Start a game';
+          this.boxes.at(-1).style.cursor = 'pointer';
+          this.boxes.at(-1).addEventListener('click', this.startGame);
+          // this.boxes.forEach(box => console.log(box.innerHTML));
+        }
+
+        showHideManual = () => {
+          // console.log(this.manual.style.display);
+          if (this.manual.style.display == 'block') {
+            this.manual.style.display = 'none';
+          } else {
+            this.manual.style.display = 'block';
+          }
+        }
+
+        startGame = () => {
+          this.initialiseGame();
+          this.boxes.forEach(function(box, idx, arr) {
+            box.innerHTML = idx + 1;
+            box.style.cursor = 'default';
+            if (box.getAttribute('listener') === 'true') box.removeEventListener('click', this.startGame);
+          });
+          // randomise
+          var nRand = Math.pow(this.number_knobs, 2) * 5;
+          for (let i = 0; i < nRand; ++i) {
+            var rand = Math.floor(Math.random() * Math.pow(this.number_knobs, 2));
+            this.turnBoxes(rand, false);
+          }
+          this.running = true;
+          this.nclicks = 0;
+          // console.log('Started a game of ' + this.number + 'x' + this.number + ' Squares.');
+          // console.log('Randomised with ' + nRand + ' rotations.')
+        }
+        
+        checkSolve() {
+          var solved = true;
+          for (let i = 1; i < this.boxes.length; ++i) {
+            if (this.boxes.at(i).idx < this.boxes.at(i - 1).idx) {
+              solved = false;
+              break;
+            }
+          }
+          if (solved) {
+            this.running = false;
+            // console.log('You solved the puzzle.! Congratulations!');
+            this.boxes.forEach(function(box, idx, arr) {
+              box.innerHTML = '';
+            });
+            this.boxes.at(0).innerHTML = '<b>Solved</b>';
+            this.boxes.at(1).innerHTML = 'using ' + this.nclicks + ' rotation(s)';
+            this.boxes.at(-2).innerHTML = 'Restart';
+            this.boxes.at(-2).style.cursor = 'pointer';
+            this.boxes.at(-2).addEventListener('click', this.startGame);
+            this.boxes.at(-1).innerHTML = 'Main menu';
+            this.boxes.at(-1).style.cursor = 'pointer';
+            this.boxes.at(-1).addEventListener('click', this.initialiseGame);
+          }
+        }
+
+        turnBoxes = (i, cw = true) => {
+          var x = i % this.number_knobs;
+          var y = Math.floor(i / this.number_knobs);
+          var rotate_idx = [];
+          if (cw) {
+            rotate_idx = [
+              x + (y + 1) * this.number,
+              (x + 1) + (y + 1) * this.number,
+              (x + 1) + y * this.number,
+              x + y * this.number
+            ];
+          } else {
+            rotate_idx = [
+              x + y * this.number,
+              (x + 1) + y * this.number,
+              (x + 1) + (y + 1) * this.number,
+              x + (y + 1) * this.number
+            ];
+          }
+          // console.log(rotate_idx);
+          var box0 = this.boxes.at(rotate_idx.at(0));
+          for (let j = 0; j < rotate_idx.length - 1; ++j) {
+            this.boxes[rotate_idx.at(j)] = this.boxes.at(rotate_idx.at(j + 1))
+            this.updateBoxPosition(this.boxes[rotate_idx.at(j)], rotate_idx.at(j));
+          }
+          this.boxes[rotate_idx.at(-1)] = box0;
+          this.updateBoxPosition(this.boxes[rotate_idx.at(-1)], rotate_idx.at(-1));
+          // this.boxes.forEach(function(box, idx, arr) {console.log('on position ' + idx + ' we now have box ' + box.idx + ' ("' + box.innerHTML + '")');});
+          // check game flag and call solved check
+          if (this.running) {
+            ++this.nclicks;
+            // console.log(this.nclicks + ' rotation(s) used so far.');
+            this.checkSolve();
+          }
+        }
+      }
+
+      window.onload = function() {
+        const game = new Squares("frame");
+      };
+			-->
+		</script>
+  </head>
+  <body>
+    <div class="frame"></div>
+  </body>
+</html>
