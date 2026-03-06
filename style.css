@@ -1,0 +1,185 @@
+/* squares.mehlhase.info */
+/* (c) Sascha Mehlhase - kontakt@mehlhase.info */
+/* game idea: Sascha Mehlhase */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-variant-emoji: text;
+  color: rgba(34, 14, 16, 1);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: rgba(34, 14, 16, 1);
+  font: 2vw sans-serif;
+  height: 100%;
+}
+
+.frame {
+  margin: auto;
+  position: absolute;
+  inset: 0; /* or use: top:0; right:0; bottom:0; left:0;*/
+  aspect-ratio: 2 / 1;
+  max-width: 95vw;
+  max-height: 95vh;
+  background: rgb(232, 229, 206, 1);
+  border: 2px solid rgba(202, 60, 8, 1);
+  border-radius: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: safe center;
+  align-content: safe center;
+  gap: 1vw;
+  padding: 1vw;
+  isolation: isolate;
+  transform-style: flat;
+}
+
+.menu, .board, .instructions, .installInstr, .solved {
+  width: 100%;
+  background: rgba(247, 245, 231, 1);
+  border: 2px solid rgba(34, 14, 16, 1);
+  border-radius: 5px;
+  padding: 1vw;
+}
+
+.menu {
+  display: flex;
+  gap: 1vw;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+/*  align-items: flex-start;*/
+/*  align-content: space-between;*/
+}
+
+.menu .title {
+  cursor: pointer;
+}
+
+.menu hr {
+  border: 1px solid rgba(34, 14, 16, 1);
+}
+
+.menu .row {
+  display: flex;
+  gap: 10px;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: space-between;
+}
+
+.menu .label, .menu .value, .menu .plusminus, .menu .start {
+  border: 1px solid rgba(34, 14, 16, 0.75);
+  border-radius: 5px;
+  line-height: 3vw;
+  padding: 0 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu .label, .menu .start {
+  flex-grow: 1;
+}
+
+.menu .value {
+  width: 10vw;
+  font-size: 2vw;
+  text-align: center;
+  background: unset;
+}
+
+.menu .plusminus, .menu .start, .menu .seed {
+  font-weight: bold;
+  background: rgba(34, 14, 16, 0.75);
+  color: rgba(247, 245, 231, 1);
+  cursor: pointer;
+}
+
+.menu .plusminus {
+  aspect-ratio: 1;
+}
+
+.menu .credits {
+  font-size: 1.4vw;
+}
+
+.menu .version, .menu .boardurl, .menu .openInstructions, .menu .install, .menu .stats, .small {
+  font-size: 1vw;
+}
+
+.menu .boardurl, .menu .openInstructions, .menu .install {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 7vw;
+}
+
+h2 {
+  font-size: 3vw;
+}
+
+.board {
+  display: grid;
+  gap: 1vw;
+  grid-template-columns: repeat(3, 1fr);
+  transition: border 500ms, color 500ms;
+  touch-action: none;
+}
+
+.element {
+  background: rgba(202, 60, 8, 0.5);
+  border-radius: 5px;
+  border: 2px solid rgba(34, 14, 16, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6vw;
+  transition: border 500ms, color 500ms;
+}
+
+.selected {
+  border: 2px solid rgba(202, 60, 8, 1);
+  color: rgba(202, 60, 8, 1);
+}
+
+.moved {
+  color: rgba(202, 60, 8, 0);
+}
+
+.instructions, .installInstr, .solved {
+  display: flex;
+  gap: 1vw;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  font-size: 1.5vw;
+  display: none;
+}
+
+.solved .solvedText {
+  display: flex;
+  gap: 1vw;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+}
+
+.instructions .closeInstructions, .solved .closeSolved, .solved .copy {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1vw;
+}
+
+/*@media (display-mode: browser) {
+  .installInstr {
+    display: block
+  }
+}
+*/
