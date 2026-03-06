@@ -111,7 +111,7 @@ window.onload = function() {
     for (let id = 0; id < g * g; ++id) {
       let item = document.createElement('div');
       item.classList.add('element');
-      item.style.fontSize = `${18 / g}vw`;
+      item.style.fontSize = `min(${18 / g}vw, ${18 / g * 1.7}vh)`;
       item.setAttribute("data-id", id);
       item.setAttribute("data-order", id);
       item.innerHTML = id + 1;
@@ -204,7 +204,6 @@ window.onload = function() {
 
       overlayed.forEach(element => { element.style.display = 'none';});
       solved.style.display = 'flex';
-      solved.style.gap = '1vw';
     }
   }
 

@@ -11,12 +11,20 @@ Hosted at https://squares.mehlhase.info/
 
 ## changelog
 
+* v2026-03-06b
+    * fix display for (too) small height
 * v2026-03-06a
     * basic playabilty, still work in progress, still lots of ideas
 * v2026-03-03a
     * first major rewrite of the game as a PWA
 
+## todo
+
+* online highscore / leaderboard
+* ...
+
 ## history
+
 
 I wrote the first version of this little game in Delphi (Pascal) ages ago, then moved to a first, yet more simplified, web version in 2022.
 After writing a few other PWAs in early 2026, I started rewriting the code from scratch as a PWA.

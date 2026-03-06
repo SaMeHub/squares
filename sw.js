@@ -3,7 +3,7 @@
 /* game idea: Sascha Mehlhase */
 
 // Files to cache
-const cacheName = 'squares-mehlhase-v2026-03-06a';
+const cacheName = 'squares-mehlhase-v2026-03-06b';
 const appShellFiles = [
   '',
   './index.html',

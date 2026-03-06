@@ -16,7 +16,7 @@ html {
 
 body {
   background-color: rgba(34, 14, 16, 1);
-  font: 2vw sans-serif;
+  font: min(2vw, 3.4vh) sans-serif;
   height: 100%;
 }
 
@@ -34,8 +34,8 @@ body {
   flex-flow: row nowrap;
   justify-content: safe center;
   align-content: safe center;
-  gap: 1vw;
-  padding: 1vw;
+  gap: min(1vw, 1.7vh);
+  padding: min(1vw, 1.7vh);
   isolation: isolate;
   transform-style: flat;
 }
@@ -45,12 +45,12 @@ body {
   background: rgba(247, 245, 231, 1);
   border: 2px solid rgba(34, 14, 16, 1);
   border-radius: 5px;
-  padding: 1vw;
+  padding: min(1vw, 1.7vh);
 }
 
 .menu {
   display: flex;
-  gap: 1vw;
+  gap: min(1vw, 1.7vh);
   flex-flow: column wrap;
   justify-content: flex-start;
 /*  align-items: flex-start;*/
@@ -67,7 +67,7 @@ body {
 
 .menu .row {
   display: flex;
-  gap: 10px;
+  gap: min(1vw, 1.7vh);
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
@@ -77,8 +77,8 @@ body {
 .menu .label, .menu .value, .menu .plusminus, .menu .start {
   border: 1px solid rgba(34, 14, 16, 0.75);
   border-radius: 5px;
-  line-height: 3vw;
-  padding: 0 1vw;
+  line-height: min(3vw, 5.1vh);
+  padding: 0 min(1vw, 1.7vh);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,8 +89,8 @@ body {
 }
 
 .menu .value {
-  width: 10vw;
-  font-size: 2vw;
+  width: min(10vw, 17vh);
+  font-size: min(2vw, 3.4vh);
   text-align: center;
   background: unset;
 }
@@ -107,11 +107,11 @@ body {
 }
 
 .menu .credits {
-  font-size: 1.4vw;
+  font-size: min(1.4vw, 2.38vh);
 }
 
 .menu .version, .menu .boardurl, .menu .openInstructions, .menu .install, .menu .stats, .small {
-  font-size: 1vw;
+  font-size: min(1vw, 1.7vh);
 }
 
 .menu .boardurl, .menu .openInstructions, .menu .install {
@@ -120,16 +120,16 @@ body {
 }
 
 h1 {
-  font-size: 7vw;
+  font-size: min(7vw, 11.9vh);
 }
 
 h2 {
-  font-size: 3vw;
+  font-size: min(3vw, 5.1vh);
 }
 
 .board {
   display: grid;
-  gap: 1vw;
+  gap: min(1vw, 1.7vh);
   grid-template-columns: repeat(3, 1fr);
   transition: border 500ms, color 500ms;
   touch-action: none;
@@ -142,7 +142,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 6vw;
+  font-size: min(5vw, 8.5vh);
   transition: border 500ms, color 500ms;
 }
 
@@ -157,16 +157,17 @@ h2 {
 
 .instructions, .installInstr, .solved {
   display: flex;
-  gap: 1vw;
-  flex-flow: column wrap;
+  gap: min(1vw, 1.7vh);
+  flex-flow: column nowrap;
   justify-content: flex-start;
-  font-size: 1.5vw;
+  font-size: min(1.5vw, 2.55vh);
+  overflow: scroll;
   display: none;
 }
 
 .solved .solvedText {
   display: flex;
-  gap: 1vw;
+  gap: min(1vw, 1.7vh);
   flex-flow: column wrap;
   justify-content: flex-start;
 }
@@ -174,7 +175,7 @@ h2 {
 .instructions .closeInstructions, .solved .closeSolved, .solved .copy {
   text-decoration: underline;
   cursor: pointer;
-  font-size: 1vw;
+  font-size: min(1vw, 1.7vh);
 }
 
 /*@media (display-mode: browser) {
