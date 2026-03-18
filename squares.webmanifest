@@ -2,7 +2,7 @@
     "name": "Squares @ Mehlhase.info Progressive Web App",
     "short_name": "Squares",
     "description": "A puzzle game by Sascha Mehlhase",
-    "orientation": "any",
+    "orientation": "portrait",
     "icons": [
         {
             "src": "media/icon-512.png",
