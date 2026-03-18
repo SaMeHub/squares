@@ -111,8 +111,6 @@ window.onload = function() {
     for (let id = 0; id < g * g; ++id) {
       let item = document.createElement('div');
       item.classList.add('element');
-      item.style.fontSize = `min(${18 / g}vw, ${18 / g * 1.7}vh)`;
-      item.style.lineHeight = `min(${18 / g}vw, ${18 / g * 1.7}vh)`;
       item.setAttribute("data-id", id);
       item.setAttribute("data-order", id);
       item.innerHTML = id + 1;

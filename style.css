@@ -21,7 +21,7 @@ html {
 
 body {
   background-color: rgba(0, 0, 0, 1);
-  font: min(2.5vw, 4vh) sans-serif;
+  font-family: sans-serif;
   height: 100%;
 
   display: flex;
@@ -42,6 +42,7 @@ body {
   flex-grow: 1;
   align-self: stretch;
   display: flex;
+  font-size: calc(100vw / 2 / 30);
 }
 
 .frame:has(.menu) {
@@ -52,12 +53,13 @@ body {
   justify-content: flex-start;
 }
 
-@media (orientation: portrait) {
+@media (max-aspect-ratio: 1) {
   .frame {
     max-width: calc(100vw - 2 * var(--spacing));
     height: calc((100vh - 3 * var(--spacing)) / 2);
     width: unset;
     max-height: unset;
+    font-size: calc(100vh / 2 / 30);
   }
 
   .frame:has(.menu) {
@@ -66,6 +68,16 @@ body {
 
   .frame:has(.board) {
     justify-content: center;
+  }
+  
+  @media (max-aspect-ratio: 1/2) {
+    .frame {
+      width: calc(100vw - 2 * var(--spacing));
+      max-height: calc((100vh - 3 * var(--spacing)) / 2);
+      height: unset;
+      max-width: unset;
+      font-size: calc(100vw / 30);
+    }
   }
 }
 
@@ -81,9 +93,10 @@ body {
 
 .menu {
   display: flex;
-  gap: var(--spacing);
+  gap: calc(var(--spacing) / 2);
   flex-flow: column nowrap;
   justify-content: flex-start;
+  overflow: scroll;
 }
 
 .menu .title {
@@ -96,7 +109,7 @@ body {
 
 .menu .row {
   display: flex;
-  gap: min(1vw, 1.7vh);
+  gap: var(--spacing);
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: stretch;
@@ -106,7 +119,7 @@ body {
 .menu .label, .menu .value, .menu .plusminus, .menu .start {
   border: 1px solid rgba(34, 14, 16, 0.75);
   border-radius: calc(var(--spacing) / 2);
-  line-height: min(3vw, 5.1vh);
+  line-height: 2rem;
   padding: 0 var(--spacing);
   display: flex;
   justify-content: center;
@@ -118,14 +131,18 @@ body {
 }
 
 .menu .start {
-  line-height: min(5.5vw, 7.7vh);
+  line-height: 2rem;
 }
 
 .menu .value {
-  width: min(10vw, 17vh);
-  font-size: min(2vw, 3.4vh);
+  width: 3rem;
   text-align: center;
   background: unset;
+  -moz-appearance: textfield;
+}
+.menu .value::-webkit-outer-spin-button, .menu .value::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .menu .plusminus, .menu .start, .menu .seed {
@@ -140,11 +157,11 @@ body {
 }
 
 .menu .credits {
-  font-size: min(1.7vw, 2.38vh);
+  font-size: 80%;
 }
 
 .menu .version, .menu .boardurl, .menu .openInstructions, .menu .install, .menu .stats, .small {
-  font-size: min(1.3vw, 1.7vh);
+  font-size: 70%;
 }
 
 .menu .boardurl, .menu .openInstructions, .menu .install {
@@ -153,11 +170,11 @@ body {
 }
 
 h1 {
-  font-size: min(7vw, 11.9vh);
+  font-size: 300%;
 }
 
 h2 {
-  font-size: min(3vw, 5.1vh);
+  font-size: 200%;
 }
 
 .board {
@@ -176,9 +193,8 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: min(5vw, 8.5vh);
-  line-height: min(5vw, 8.5vh);
   transition: border 500ms, color 500ms;
+  font-size: 200%;
 }
 
 .selected {
@@ -195,7 +211,7 @@ h2 {
   gap: var(--spacing);
   flex-flow: column nowrap;
   justify-content: flex-start;
-  font-size: min(1.5vw, 2.55vh);
+  font-size: 80%;
   overflow: scroll;
   display: none;
 }
@@ -210,7 +226,7 @@ h2 {
 .instructions .closeInstructions, .solved .closeSolved, .solved .copy {
   text-decoration: underline;
   cursor: pointer;
-  font-size: min(1vw, 1.7vh);
+  font-size: 70%;
 }
 
 /*@media (display-mode: browser) {

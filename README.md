@@ -11,7 +11,7 @@ Hosted at https://squares.mehlhase.info/
 
 ## changelog
 
-* v2026-03-18b
+* v2026-03-18c, v2026-03-18b, v2026-03-18a
     * more dynamic scaling and adjustments for portrait view
 * v2026-03-06b
     * fix display for (too) small height
