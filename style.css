@@ -2,6 +2,11 @@
 /* (c) Sascha Mehlhase - kontakt@mehlhase.info */
 /* game idea: Sascha Mehlhase */
 
+:root {
+  --spacing: 10px;
+  --aspect-ratio: 1;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,46 +20,70 @@ html {
 }
 
 body {
-  background-color: rgba(34, 14, 16, 1);
-  font: min(2vw, 3.4vh) sans-serif;
+  background-color: rgba(0, 0, 0, 1);
+  font: min(2.5vw, 4vh) sans-serif;
   height: 100%;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: safe center;
+  align-content: center;
+  align-items: center;
+  gap: var(--spacing);
+  padding: var(--spacing);
 }
 
 .frame {
-  margin: auto;
-  position: absolute;
-  inset: 0; /* or use: top:0; right:0; bottom:0; left:0;*/
-  aspect-ratio: 2 / 1;
-  max-width: 95vw;
-  max-height: 95vh;
-  background: rgb(232, 229, 206, 1);
-  border: 2px solid rgba(202, 60, 8, 1);
-  border-radius: 10px;
+  aspect-ratio: var(--aspect-ratio);
+  width: calc((100vw - 3 * var(--spacing)) / 2);
+  max-height: calc(100vh - 2 * var(--spacing));
+  height: unset;
+  max-width: unset;
+  flex-grow: 1;
+  align-self: stretch;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: safe center;
-  align-content: safe center;
-  gap: min(1vw, 1.7vh);
-  padding: min(1vw, 1.7vh);
-  isolation: isolate;
-  transform-style: flat;
+}
+
+.frame:has(.menu) {
+  justify-content: flex-end;
+}
+
+.frame:has(.board) {
+  justify-content: flex-start;
+}
+
+@media (orientation: portrait) {
+  .frame {
+    max-width: calc(100vw - 2 * var(--spacing));
+    height: calc((100vh - 3 * var(--spacing)) / 2);
+    width: unset;
+    max-height: unset;
+  }
+
+  .frame:has(.menu) {
+    justify-content: center;
+  }
+
+  .frame:has(.board) {
+    justify-content: center;
+  }
 }
 
 .menu, .board, .instructions, .installInstr, .solved {
-  width: 100%;
+  aspect-ratio: var(--aspect-ratio);
+  max-width: 100%;
+  max-height: 100%;
   background: rgba(247, 245, 231, 1);
-  border: 2px solid rgba(34, 14, 16, 1);
-  border-radius: 5px;
-  padding: min(1vw, 1.7vh);
+  border: 1px solid rgba(34, 14, 16, 1);
+  border-radius: var(--spacing);
+  padding: var(--spacing);
 }
 
 .menu {
   display: flex;
-  gap: min(1vw, 1.7vh);
-  flex-flow: column wrap;
+  gap: var(--spacing);
+  flex-flow: column nowrap;
   justify-content: flex-start;
-/*  align-items: flex-start;*/
-/*  align-content: space-between;*/
 }
 
 .menu .title {
@@ -76,9 +105,9 @@ body {
 
 .menu .label, .menu .value, .menu .plusminus, .menu .start {
   border: 1px solid rgba(34, 14, 16, 0.75);
-  border-radius: 5px;
+  border-radius: calc(var(--spacing) / 2);
   line-height: min(3vw, 5.1vh);
-  padding: 0 min(1vw, 1.7vh);
+  padding: 0 var(--spacing);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,6 +115,10 @@ body {
 
 .menu .label, .menu .start {
   flex-grow: 1;
+}
+
+.menu .start {
+  line-height: min(5.5vw, 7.7vh);
 }
 
 .menu .value {
@@ -103,15 +136,15 @@ body {
 }
 
 .menu .plusminus {
-  aspect-ratio: 1;
+  aspect-ratio: var(--aspect-ratio);
 }
 
 .menu .credits {
-  font-size: min(1.4vw, 2.38vh);
+  font-size: min(1.7vw, 2.38vh);
 }
 
 .menu .version, .menu .boardurl, .menu .openInstructions, .menu .install, .menu .stats, .small {
-  font-size: min(1vw, 1.7vh);
+  font-size: min(1.3vw, 1.7vh);
 }
 
 .menu .boardurl, .menu .openInstructions, .menu .install {
@@ -129,20 +162,22 @@ h2 {
 
 .board {
   display: grid;
-  gap: min(1vw, 1.7vh);
+  gap: var(--spacing);
   grid-template-columns: repeat(3, 1fr);
   transition: border 500ms, color 500ms;
   touch-action: none;
 }
 
 .element {
+  aspect-ratio: var(--aspect-ratio);
   background: rgba(202, 60, 8, 0.5);
-  border-radius: 5px;
+  border-radius: calc(var(--spacing) / 2);
   border: 2px solid rgba(34, 14, 16, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: min(5vw, 8.5vh);
+  line-height: min(5vw, 8.5vh);
   transition: border 500ms, color 500ms;
 }
 
@@ -157,7 +192,7 @@ h2 {
 
 .instructions, .installInstr, .solved {
   display: flex;
-  gap: min(1vw, 1.7vh);
+  gap: var(--spacing);
   flex-flow: column nowrap;
   justify-content: flex-start;
   font-size: min(1.5vw, 2.55vh);
@@ -167,7 +202,7 @@ h2 {
 
 .solved .solvedText {
   display: flex;
-  gap: min(1vw, 1.7vh);
+  gap: var(--spacing);
   flex-flow: column wrap;
   justify-content: flex-start;
 }
